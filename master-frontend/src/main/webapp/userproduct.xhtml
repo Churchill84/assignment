@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template_main.xhtml">
+
+	<ui:define name="body">
+
+		<div class="header"></div>
+		<div id="mainContent">
+			<div class="UserProductContent">
+				<div class="UserProductForm">
+					<h:form id="loginForm">
+						<h:outputStylesheet library="css" name="style.css" />
+						<p:dataTable id="tblProduct" var="product"
+							value="#{productBean.productList}" emptyMessage="No data"
+							rows="10" paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							rowKey="#{product.id}">
+							<p:column headerText="Image">
+								<h:graphicImage url="#{product.image}" width="200" height="171" />
+							</p:column>
+							<p:column headerText="Description">
+								<h:outputText value="#{product.description}" />
+							</p:column>
+							<p:column headerText="Price">
+								<h:outputText value="#{product.price}" />
+							</p:column>
+							<p:column>
+								<p:commandButton id="bucket" class="btn btn-success btnSpace"
+									actionListener="#{productBean.createBucketList(product)}"
+									icon="bucket-picture" style="float: right;">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						<hr />
+						<h:panelGrid columns="1" cellpadding="10" width="100%">
+							<p:commandButton id="loginButton"
+								class="btn btn-success btnSpace" value="Logout"
+								action="#{productBean.logout()}" style="float: right;">
+							</p:commandButton>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" cellpadding="10" width="100%">
+							<p:commandButton id="basketButton"
+								class="btn btn-success btnSpace" value="Go to basket"
+								action="#{productBean.showBucketPage()}" style="float: right;">
+							</p:commandButton>
+						</h:panelGrid>
+
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

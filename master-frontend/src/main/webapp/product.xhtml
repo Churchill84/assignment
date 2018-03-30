@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template_main.xhtml">
+
+	<ui:define name="body">
+		<div class="header"></div>
+		<div id="mainContent">
+			<p:growl id="growl" showDetail="true" sticky="false"
+				globalOnly="true" />
+			<h:form id="productForm">
+				<h:dataTable id="productTable" binding="#{table}"
+					value="#{productBean.productAllList}" var="p"
+					class="table table-striped table-hover table-bordered tableUpdated">
+					<h:column>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{table.rowIndex + 1}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Product description</f:facet>
+						<h:outputText value="#{p.description}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Product image</f:facet>
+						<h:graphicImage url="#{p.image}" width="200" height="171" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Product price</f:facet>
+						<h:outputText value="#{p.price}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Product stock</f:facet>
+						<h:outputText value="#{p.stock}" />
+					</h:column>
+					<h:column>
+						<p:commandButton value="Edit" class="btn btn-success btnSpace"
+							actionListener="#{productBean.selectProduct(p)}"
+							oncomplete="PF('editProductDlg').show();"
+							update="editProductForm" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Delete</f:facet>
+						<h:commandButton action="#{productBean.deliteProductRecord(p)}"
+							value="Delete" class="btn btn-danger" />
+					</h:column>
+				</h:dataTable>
+				<hr />
+				<center>
+					<p:commandButton value="Create New Product"
+						class="btn btn-success btnSpace"
+						onclick="PF('createProductDlg').show();" />
+				</center>
+
+				<h:panelGrid>
+					<p:commandButton value="Show Orders"
+						class="btn btn-success btnSpace"
+						action="#{userLoginBean.showOrderDetails()}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" cellpadding="10" width="100%">
+					<p:commandButton id="loginButton" class="btn btn-success btnSpace"
+						value="Logout" action="#{productBean.logout()}"
+						style="float: right;">
+					</p:commandButton>
+				</h:panelGrid>
+			</h:form>
+
+			<p:dialog widgetVar="createProductDlg" modal="true" resizable="true"
+				position="center" closable="true" id="createProductDlgId"
+				closeOnEscape="true" draggable="true">
+				<h:form id="createProductForm">
+					<p:panelGrid columns="3">
+
+						<p:inputText required="true" id="descriptionId"
+							value="#{productBean.product.description}" />
+						<h:outputLabel value="Description" />
+						<p:message for="descriptionId" autoUpdate="true" />
+
+						<p:inputText required="true" id="priceId"
+							value="#{productBean.product.price}" />
+						<h:outputLabel value="Price" />
+						<p:message for="priceId" autoUpdate="true" />
+
+						<p:inputText required="true" id="imageId"
+							value="#{productBean.product.image}" />
+						<h:outputLabel value="Image" />
+						<p:message for="imageId" autoUpdate="true" />
+
+						<p:inputText required="true" id="stockId"
+							value="#{productBean.product.stock}" />
+						<h:outputLabel value="Stock" />
+						<p:message for="stockId" autoUpdate="true" />
+
+					</p:panelGrid>
+					<p:commandButton value="Save" ajax="true" validateClient="true"
+						action="#{productBean.insertProductRecord()}"
+						onclick="PF('createProductDlg').hide();"
+						update="productForm">
+					</p:commandButton>
+
+					<p:commandButton value="Cancel" process="@this" ajax="true"
+						onclick="PF('createProductDlg').hide();"
+						style="margin-left: 10px;">
+						<p:resetInput target="createProductForm" />
+					</p:commandButton>
+
+				</h:form>
+			</p:dialog>
+
+			<p:dialog widgetVar="editProductDlg" modal="true" resizable="true"
+				position="center" closable="true" id="editProductDlgId"
+				closeOnEscape="true" draggable="true">
+				<h:form id="editProductForm">
+					<p:panelGrid columns="3">
+
+						<p:inputText required="true" id="descriptionId"
+							value="#{productBean.selectedProduct.description}" />
+						<h:outputLabel value="Description" />
+						<p:message for="descriptionId" autoUpdate="true" />
+
+						<p:inputText required="true" id="priceId"
+							value="#{productBean.selectedProduct.price}" />
+						<h:outputLabel value="Price" />
+						<p:message for="priceId" autoUpdate="true" />
+
+						<p:inputText required="true" id="imageId"
+							value="#{productBean.selectedProduct.image}" />
+						<h:outputLabel value="Image" />
+						<p:message for="imageId" autoUpdate="true" />
+
+						<p:inputText required="true" id="stockId"
+							value="#{productBean.selectedProduct.stock}" />
+						<h:outputLabel value="Stock" />
+						<p:message for="stockId" autoUpdate="true" />
+
+					</p:panelGrid>
+					<p:commandButton value="Update" validateClient="true"
+						action="#{productBean.editProductRecord()}"
+						oncomplete="if (args.saved) PF('editProductDlg').hide();"
+						update="productForm" ajax="true">
+						<p:resetInput target="editProductForm" />
+					</p:commandButton>
+
+					<p:commandButton value="Cancel" process="@this" ajax="true"
+						onclick="PF('editProductDlg').hide();" style="margin-left: 10px;">
+						<p:resetInput target="editProductForm" />
+					</p:commandButton>
+
+				</h:form>
+			</p:dialog>
+		</div>
+	</ui:define>
+</ui:composition>

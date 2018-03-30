@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template_main.xhtml">
+
+	<ui:define name="body">
+
+		<div class="header"></div>
+		<div id="mainContent">
+			<div class="UserProductContent">
+				<div class="UserProductForm">
+					<h:form id="loginForm">
+						<p:dataTable id="tblProduct" var="product"
+							value="#{productBean.productFromBucket}" emptyMessage="No data"
+							rows="10" paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							rowKey="#{product.id}">
+							<p:column headerText="Image">
+								<h:graphicImage url="#{product.image}" width="200" height="171" />
+							</p:column>
+							<p:column headerText="Description">
+								<h:outputText value="#{product.description}" />
+							</p:column>
+							<p:column headerText="Price">
+								<h:outputText value="#{product.price}" />
+							</p:column>
+							<p:column headerText="Stock">
+								<h:outputText value="#{product.stock}" />
+							</p:column>
+							<p:column>
+								<p:commandButton value="Edit" class="btn btn-success btnSpace"
+									actionListener="#{productBean.selectProduct(product)}"
+									oncomplete="PF('setQuantityDlg').show();" update="loginForm" />
+							</p:column>
+						</p:dataTable>
+						<hr />
+
+						<h:panelGrid columns="1" cellpadding="10" width="100%">
+							<p:commandButton id="BuyButton" class="btn btn-success btnSpace"
+								actionListener="#{productBean.createOrderWithOrderDetails()}" value="Buy" style="float: right;">
+							</p:commandButton>
+						</h:panelGrid>
+
+					</h:form>
+					<p:dialog widgetVar="setQuantityDlg" modal="true" resizable="true"
+						position="center" closable="true" id="setQuantityDlgId"
+						closeOnEscape="true" draggable="true">
+						<h:form id="setQuantityForm">
+							<p:panelGrid columns="3">
+								<p:inputText required="true" id="quantityId"
+									value="#{productBean.selectedProduct.quantity}" />
+								<h:outputLabel value="Quantity" />
+								<p:message for="quantityId" autoUpdate="true" />
+							</p:panelGrid>
+							<p:commandButton value="Update" validateClient="true"
+								action="#{productBean.updateProductQuantity(productBean.selectedProduct)}"
+								oncomplete="if (args.saved) PF('setQuantityDlg').hide();"
+								update="loginForm setQuantityForm" ajax="true">
+								<p:resetInput target="setQuantityForm" />
+							</p:commandButton>
+
+							<p:commandButton value="Cancel" process="@this" ajax="true"
+								onclick="PF('setQuantityDlg').hide();"
+								style="margin-left: 10px;">
+								<p:resetInput target="setQuantityForm" />
+							</p:commandButton>
+
+						</h:form>
+					</p:dialog>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
