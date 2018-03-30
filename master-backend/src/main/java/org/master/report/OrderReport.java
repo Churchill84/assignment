@@ -1,12 +1,9 @@
 package org.master.report;
 
-import javax.persistence.Entity;
-
-import org.master.model.Person;
-import org.master.model.Product;
-
 public class OrderReport {
 	private String personName;
+	private String personEmail;
+	private String personAddress;
 	private String productDesc;
 	private double quantity;
 	private String productImage;
@@ -25,6 +22,22 @@ public class OrderReport {
 
 	public void setPersonName(String personName) {
 		this.personName = personName;
+	}
+
+	public String getPersonEmail() {
+		return personEmail;
+	}
+
+	public void setPersonEmail(String personEmail) {
+		this.personEmail = personEmail;
+	}
+
+	public String getPersonAddress() {
+		return personAddress;
+	}
+
+	public void setPersonAddress(String personAddress) {
+		this.personAddress = personAddress;
 	}
 
 	public String getProductDesc() {

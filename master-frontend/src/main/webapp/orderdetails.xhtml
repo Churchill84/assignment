@@ -26,11 +26,17 @@
 							<p:column headerText="Description">
 								<h:outputText value="#{report.productDesc}" />
 							</p:column>
+							<p:column headerText="Quantity">
+								<h:outputText value="#{report.quantity}" />
+							</p:column>
 							<p:column headerText="Person">
 								<h:outputText value="#{report.personName}" />
 							</p:column>
-							<p:column headerText="Quantity">
-								<h:outputText value="#{report.quantity}" />
+							<p:column headerText="Email">
+								<h:outputText value="#{report.personEmail}" />
+							</p:column>
+							<p:column headerText="Address">
+								<h:outputText value="#{report.personAddress}" />
 							</p:column>
 							<!-- 
 							<p:column>

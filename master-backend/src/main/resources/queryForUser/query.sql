@@ -1,0 +1,1 @@
+INSERT INTO "userapp" ("id", "username", "password", "status") VALUES (1, E'Gisa', E'gisa', 1);
