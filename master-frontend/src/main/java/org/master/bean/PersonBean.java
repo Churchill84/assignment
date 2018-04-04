@@ -7,9 +7,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
@@ -21,14 +21,13 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.master.front.model.Person;
-import org.master.front.model.Product;
 import org.primefaces.context.RequestContext;
 import org.primefaces.json.JSONObject;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Named
+@ManagedBean(name="personBean")
 @ViewScoped
 public class PersonBean implements Serializable {
 	/**

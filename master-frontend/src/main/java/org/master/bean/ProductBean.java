@@ -9,9 +9,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
@@ -27,13 +27,12 @@ import org.master.front.model.OrderDetails;
 import org.master.front.model.Person;
 import org.master.front.model.Product;
 import org.primefaces.context.RequestContext;
-import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Named
+@ManagedBean(name="productBean")
 @ViewScoped
 public class ProductBean implements Serializable {
 	/**
@@ -417,6 +416,7 @@ public class ProductBean implements Serializable {
 		selectedProduct = p;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void createOrderWithOrderDetails() {
 		if (session.getAttribute("person") != null) {
 			Order order = new Order();
@@ -453,7 +453,6 @@ public class ProductBean implements Serializable {
 					.redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()
 							+ "/userproduct.xhtml");
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}

@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>master-backend</artifactId>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -21,4 +22,11 @@
 	<name>master-backend</name>
 	<url>http://maven.apache.org</url>
 	<packaging>war</packaging>
+	<dependencies><!-- https://mvnrepository.com/artifact/javax.ws.rs/jsr311-api -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+	</dependencies>
 </project>

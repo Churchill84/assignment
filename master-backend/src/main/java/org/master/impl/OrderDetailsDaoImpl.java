@@ -11,7 +11,7 @@ import org.master.model.OrderDetails;
 @Stateless
 public class OrderDetailsDaoImpl {
 	
-	private long id;
+	public long id;
 	
 	@PersistenceContext(unitName = "shop")
 	EntityManager entityManager;

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
@@ -22,7 +22,7 @@ import org.master.front.model.UserApp;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Named
+@ManagedBean(name="userLoginBean")
 @ViewScoped
 public class UserLoginBean implements Serializable {
 

@@ -1,6 +1,5 @@
 package org.master.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.master.model.Order;
 import org.master.report.OrderReport;
 
 @Stateless
