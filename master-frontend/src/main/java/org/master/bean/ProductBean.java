@@ -106,18 +106,19 @@ public class ProductBean implements Serializable {
 		// return null;
 		// }
 		//
-		// System.out.println(((List<Product>)
-		// session.getAttribute("bucketList")).size());
+		
+		System.out.println("daj artikle");
+		
+		System.out.println(((List<Product>) session.getAttribute("bucketList")).size());
 
 		return (List<Product>) session.getAttribute("bucketList");
 	}
 
 	public void showBucketPage() {
 		try {
-			addProductToBucket();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()
-							+ "/userproductbucket.xhtml");
+							+ "/product.xhtml");
 
 		} catch (Exception e) {
 			e.printStackTrace();
